@@ -4,17 +4,21 @@
 	<style>
                 #contentWrap{
                         position:fixed;
-                        width:314px;
-                        bottom:0px;
-                        right:0px;
+                        width:293px;
+                        bottom:-383px;
+                        /*bottom:0px;*/
+                        right:10px;
                         display:none;
+                }
+                #nickWrap{
+                        display: none;
                 }
                 #chatWrap{
                         width:100%;
                         float: left;
                         border: 1px #000 solid;
                 }
-                .header {
+                .chat-header {
                         font-size: 18px;
                         font-weight: 600;
                         line-height: 19px;
@@ -23,6 +27,7 @@
                         background:#1a1a1a;
                         width:100%;
                         box-sizing: border-box;
+                        text-decoration:none;
                 }
                 #chat{
                         height:350px;
@@ -74,106 +79,29 @@
                 .error{
                         color: red;
                 }
-                .msg-box {
-                padding:15px 5px 15px 5px;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+                .msg-count {
                 }
-                .msg {
+                .newMessage {
+                        color:#f8a326;
+                        text-shadow: 0px 0px 1px #fff;
+                        -webkit-transition: color 1.0s ease-in-out;
+                        -moz-transition:    color 1.0s ease-in-out;
+                        -ms-transition:     color 1.0s ease-in-out;
+                        transition:         color 1.0s ease-in-out;
+                }
+                .msg-box {
+                        padding:15px 5px 15px 5px;
+                        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+                }
+                .whisp-box{
+                        padding: 15px 5px 15px 5px;
+                        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
                 }
                 .whisper{
                         color: gray;
                         font-style: italic;
-                        padding:5px;
-                
-		}
-
-		/* MESSAGE FORM */
-                #message {
-                        height: 33px;
-                        line-height: 33px;
-                        margin-bottom: 0;
-                        border:1px #ddd solid;
                 }
 
-                /* USER LIST*/
-                .user {
-                          position: relative;
-                          display: inline-block;
-                          vertical-align: baseline;
-                          zoom: 1;
-                          *display: inline;
-                          *vertical-align: auto;
-                }
-                .user img {
-                          float: left;
-                          width: 32px;
-                          height: 32px;
-                          margin-right: 8px;
-                }
-                .user:hover ul {
-                          visibility: visible;
-                          opacity: 1;
-                          padding: 4px 0 6px;
-                }
-                .user ul {
-                          list-style-type:none;
-                          min-width:150px;
-                          visibility: hidden;
-                          opacity: 0;
-                          position: absolute;
-                          top: 100%;
-                          left: 0;
-                          right: 0;
-                          border: 1px solid;
-                          border-color: #777 #6c6c6c #666;
-                          border-radius: 5px;
-                          -webkit-transition-property: opacity, padding, visibility;
-                          -moz-transition-property: opacity, padding, visibility;
-                          -ms-transition-property: opacity, padding, visibility;
-                          -o-transition-property: opacity, padding, visibility;
-                          transition-property: opacity, padding, visibility;
-                          -webkit-transition: 0.2s ease-out;
-                          -moz-transition: 0.2s ease-out;
-                          -ms-transition: 0.2s ease-out;
-                          -o-transition: 0.2s ease-out;
-                          transition: 0.2s ease-out;
-                          background-color: #d9e3fa;
-                          background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eef3fe), color-stop(100%, #d9e3fa));
-                          background-image: -webkit-linear-gradient(top, #eef3fe, #d9e3fa);
-                          background-image: -moz-linear-gradient(top, #eef3fe, #d9e3fa);
-                          background-image: -ms-linear-gradient(top, #eef3fe, #d9e3fa);
-                          background-image: -o-linear-gradient(top, #eef3fe, #d9e3fa);
-                          background-image: linear-gradient(top, #eef3fe, #d9e3fa);
-                          -webkit-box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.9), 0 1px 2px rgba(0, 0, 0, 0.1);
-                          box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.9), 0 1px 2px rgba(0, 0, 0, 0.1);
-                }
-                .user ul:before, .user ul:after, .user li:first-child:after {
-                          display: block;
-                          content: '';
-                          width: 0;
-                          height: 0;
-                          position: absolute;
-                          left: 15px;
-                          border: 7px outset transparent;
-                }
-                .user ul:before {
-                          border-bottom: 7px solid #555;
-                          top: -14px;
-                }
-                .user li:first-child:after {
-                          border-bottom: 7px solid #fff;
-                          top: -13px;
-                }
-                .user ul:after {
-                          border-bottom: 7px solid #EEF3FE;
-                          top: -12px;
-                }
-                .user li {
-                          padding: 0 12px;
-                          font-size: 18px;
-                          color: #838ca2;
-                          text-shadow: 0 1px #fff;
-                }
 		/* MESSAGE FORM */
                 #message {
                         height: 33px;
@@ -274,138 +202,124 @@
 	</div>
 
 	<div id="contentWrap">
-		<div class="header">
-		   <span class="user"> 
-		   Chat
-		   <ul>
-		      <span id="users">
-		      </span>
-                      <li class="sep">Click a name to send a private message to that user.</li>
-                   </ul>
-		   </span>
-		   <a href="#" id="show" class="toggle" onclick="$('#contentWrap').animate({'bottom': '0'}, 'fast'); $('#show').hide(); $('#hide').show();"> &#43; </a>
-                   <a href="#" id="hide" class="toggle" onclick="$('#contentWrap').animate({'bottom': '-419'}, 'fast'); $('#hide').hide(); $('#show').show();"> &#8210; </a>
-		</div>
-		<div id="chatWrap">
-			<div id="chat"></div>
-			<hr>
-			<form id="send-message">
-				<input style="width:100%;" id="message"></input>
-				<input style="display:none;" type="submit"></input>
-			</form>
-		</div>
+           <div class="chat-header">
+              <span class="user"> <i class="icon-comment"></i> <span class="msg-count"></span>
+                 <ul>
+                    <span id="user-list"></span>
+                    <li class="sep">Click a name to send a private message to that user.</li>
+                 </ul>
+              </span>
+              <a href="#" id="chat_show" class="toggle" style="text-decoration:none;" onclick="$('#contentWrap').animate({'bottom': '0'}, 'fast'); $('#chat_show').hide(); $('#chat_hide').show();"><i class="icon-chevron-up"></i></a>
+              <a href="#" id="chat_hide" class="toggle" style="text-decoration:none;" onclick="$('#contentWrap').animate({'bottom': '-383'}, 'fast'); $('#chat_hide').hide(); $('#chat_show').show();"><i class="icon-chevron-down"></i></a>
+           </div>
+           <div id="chatWrap">
+	      <div id="chat"></div>
+	      <form id="send-message">
+                 <input style="width:100%;" id="message" placeholder="Type a message..."></input>
+                 <input style="display:none;" type="submit"></input>
+              </form>
+           </div>
 	</div>
 	
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 		jQuery(function($){
-			var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
-			if ( ! is_chrome ) {
-			   alert("Sorry, you will not be able to receive desktop notifications. " + is_chrome);
-			}
-                        else if ( window.webkitNotifications) {
-			  console.info("Notifications are supported!");
-			}
-			else {
-			  console.info("Notifications are not supported for this Browser/OS version yet.");
-			}
+			var socket = io.connect(host);
+                        var $nickForm = $('#setNick');
+                        var $nickError = $('#nickError');
+                        var $nickBox = $('#nickname');
+                        var $users = $('#user-list');
+                        var $messageForm = $('#send-message');
+                        var $messageBox = $('#message');
+                        var $chat = $('#chat');
+                        var o = $chat.offset().top + 5000;
+                        var h = $chat.outerHeight();
 
-			document.querySelector('#show_button').addEventListener('click', function() {
-			if ( !is_chrome || window.webkitNotifications.checkPermission() == 0) { // 0 is PERMISSION_ALLOWED
+                                $nickname = $nickBox.val().toLowerCase();
+                                socket.emit('new user', $nickname, function(data){
+                                        if(data){
+                                                //$('#nickWrap').hide();
+                                                $('#contentWrap').show();
+                                                //$(document).attr('title', 'Hello, '+$nickname);
+                                        } else{
+                                                $nickError.html('That username is already taken!  Try again.');
+                                        }
+                                });
+                                //$nickBox.val('');
 
-			var socket = io.connect();
-			var $nickForm = $('#setNick');
-			var $nickError = $('#nickError');
-			var $nickBox = $('#nickname');
-			var $users = $('#users');
-			var $messageForm = $('#send-message');
-			var $messageBox = $('#message');
-			var $chat = $('#chat');
-			var o = $chat.offset().top + 3500;
-			var h = $chat.outerHeight();
-			
-			$nickForm.submit(function(e){
-				e.preventDefault();
-				$nickname = $nickBox.val().toLowerCase();
-				socket.emit('new user', $nickname, function(data){
-					if(data){
-						$('#nickWrap').hide();
-						$('#contentWrap').show();
-						$(document).attr('title', 'Hello, '+$nickname);
-					} else{
-						$nickError.html('That username is already taken!  Try again.');
-					}
-				});
-				//$nickBox.val('');
-			});
-			
-			socket.on('usernames', function(data){
-				var html = '';
-				for(var i=0; i < data.length; i++){
-					html += "<li><a id='"+data[i]+"' class='usernames'  href='#' onclick=\"document.getElementById('message').value='/w " +data[i]+" '; document.getElementById('message').focus();\">"+data[i]+"</a></li>"
-				}
-				$users.html(html);
-			});
-			
-			$messageForm.submit(function(e){
-				e.preventDefault();
+                        socket.on('usernames', function(data){
+                                var html = '';
+                                for(var i=0; i < data.length; i++){
+                                        html += "<li><a id='"+data[i]+"' class='usernames'  href='#' onclick=\"document.getElementById('message').value='/w " +data[i]+" '; document.getElementById('message').focus();\">"+data[i]+"</a></li>"
+                                }
+                                $users.html(html);
+                        });
+
+                        var newMsg = 0;
+                        var timerId = 0;
+                        $messageForm.submit(function(e){
+                                e.preventDefault();
                                 var d = new Date();
-				var curr_hour = d.getHours();
-				var curr_min = (d.getMinutes()<10?'0':'') + d.getMinutes();
-				var time = " <span class='ts'>"+ curr_hour + " : " + curr_min +"</span>"
+                                var curr_hour = d.getHours();
+                                var curr_min = (d.getMinutes()<10?'0':'') + d.getMinutes();
+                                var time = " <span class='ts'>"+ curr_hour + " : " + curr_min +"</span>"
                                 var note = $messageBox.val() + time
-				socket.emit('send message', note, function(data){
-					$chat.append('<span class="error">' + data + "</span><br/>");
+                                socket.emit('send message', note, function(data){
+                                        $chat.append('<span class="error">' + data + "</span><br/>");
                                 });
                                 var value = $('#message').val();
-				if(value.substr(0,3) === '/w ') {
+                                if(value.substr(0,3) === '/w ') {
                                     var msg = value.substr(3);
                                     var name = msg.substr(0,msg.indexOf(' '));
                                     msg = msg.substr(msg.indexOf(' ')+1);
-                                    $chat.append('<span class="whisper"><b> You &rarr; '+ name + '</b>: '+ msg +'</span>'+ time +'<br/>');
-				    $chat.scrollTop( o + h );
-				}
+                                    $chat.append('<div class="whisp-box"><span class="whisper"><b> You &rarr; '+ name + '</b>: '+ msg +'</span>'+ time +'</div>');
+                                    $chat.scrollTop( o + h );
+                                }
                                 $messageBox.val('');
-			});
-			
-			socket.on('load old msgs', function(docs){
-				for(var i=docs.length-1; i >= 0; i--){
-					displayMsg(docs[i]);
-				}
-			});
-			
-			socket.on('new message', function(data){
-				displayMsg(data);
-			});
-			
-			function displayMsg(data){
-				$chat.append('<div class="msg-box"><span class="msg"><b><a id="'+ data.nick +'" href="#" onclick=\'document.getElementById("message").value="/w '+ data.nick +' "; document.getElementById("message").focus(); \'>' + data.nick + '</a>: </b>' + data.msg + '</span></div>');
-				$chat.scrollTop( o + h );
-			}
-			
-			socket.on('whisper', function(data){
-				$chat.append('<span class="whisper"><b><a id="'+ data.nick +'" class="gray" href="#" onclick=\'document.getElementById("message").value="/w '+ data.nick +' "; document.getElementById("message").focus(); \'>' + data.nick + '</a>: </b>' + data.msg + '</span><br/>');
-				$chat.scrollTop( o + h );
+                        });
 
-				    var regex = /(<([^>]+)>)/ig
-	                            ,   body = data.msg
-	                            ,   result = body.replace(regex, "");
-	                            nMsg = result
-				    notification_test = window.webkitNotifications.createNotification('http://192.168.2.111/assets/img/logo.png', data.nick, nMsg);
-	                            //notification_test.ondisplay = function() { };
-	                            //notification_test.onclose = function() { };
-	                            notification_test.show();
-				    setTimeout(function(){
-				       notification_test.cancel();
-				    }, '3000');                         
-				});
-			} else {
-                           window.webkitNotifications.requestPermission();
-                         }
-                       }, false);
- 
-		});
+                        socket.on('load old msgs', function(docs){
+                                for(var i=docs.length-1; i >= 0; i--){
+                                        displayMsg(docs[i]);
+                                }
+                        });
+
+                        socket.on('new message', function(data){
+                                displayMsg(data);
+                                /* Blink chat bar on new message */
+                                if (timerId != 0) {
+                                  newMsg++
+                                  $(".msg-count").html(newMsg);
+                                } else {
+                                  timerId = 0;
+                                  newMsg++
+                                  $(".msg-count").html(newMsg);
+                                  timerId = setInterval(function(){
+                                    $(".icon-comment").toggleClass("newMessage");
+                                  },3000)
+                                }
+                                /* Clear Blink notification on focus */
+                                $("#contentWrap").on("click", function(){
+                                    clearInterval(timerId);
+                                    $(".icon-comment").removeClass("newMessage");
+                                    newMsg = 0;
+                                    $(".msg-count").empty();
+                                });
+                        });
+                        
+                        function displayMsg(data){
+                                $chat.append('<div class="msg-box"><span class="msg"><b><a id="'+ data.nick +'" href="#" onclick=\'document.getElementById("message").value="/w '+ data.nick +' "; document.getElementById("message").focus(); \'>' + data.nick + '</a>: </b>' + data.msg + '</span></div>');
+                                $chat.scrollTop( o + h );
+                        }
+
+                        socket.on('whisper', function(data){
+                                $chat.append('<div class="whisp-box"><span class="whisper"><b><a id="'+ data.nick +'" class="gray" href="#" onclick=\'document.getElementById("message").value="/w '+ data.nick +' "; document.getElementById("message").focus(); \'>' + data.nick + '</a>: </b>' + data.msg + '</span></div>');
+                                $chat.scrollTop( o + h );
+
+                        });
+                });
+                        
 	</script>
 </body>
 </html>
