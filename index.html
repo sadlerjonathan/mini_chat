@@ -238,14 +238,14 @@
                                 $nickname = $nickBox.val().toLowerCase();
                                 socket.emit('new user', $nickname, function(data){
                                         if(data){
-                                                //$('#nickWrap').hide();
+                                                $('#nickWrap').hide();
                                                 $('#contentWrap').show();
-                                                //$(document).attr('title', 'Hello, '+$nickname);
+                                                $(document).attr('title', 'Hello, '+$nickname);
                                         } else{
                                                 $nickError.html('That username is already taken!  Try again.');
                                         }
                                 });
-                                //$nickBox.val('');
+                                $nickBox.val('');
 
                         socket.on('usernames', function(data){
                                 var html = '';
