@@ -208,8 +208,8 @@
                     <li class="sep">Click a name to send a private message to that user.</li>
                  </ul>
               </span>
-              <a href="#" id="chat_show" class="toggle" style="text-decoration:none;" onclick="$('#contentWrap').animate({'bottom': '0'}, 'fast'); $('#chat_show').hide(); $('#chat_hide').show();"><i class="icon-chevron-up"></i></a>
-              <a href="#" id="chat_hide" class="toggle" style="text-decoration:none;" onclick="$('#contentWrap').animate({'bottom': '-383'}, 'fast'); $('#chat_hide').hide(); $('#chat_show').show();"><i class="icon-chevron-down"></i></a>
+              <a href="#" id="chat_show" class="toggle" style="text-decoration:none;" onclick="$('#contentWrap').animate({'bottom': '0'}, 'fast'); $('#chat_show').hide(); $('#chat_hide').show();"> + </a>
+              <a href="#" id="chat_hide" class="toggle" style="text-decoration:none;" onclick="$('#contentWrap').animate({'bottom': '-383'}, 'fast'); $('#chat_hide').hide(); $('#chat_show').show();"> - </a>
            </div>
            <div id="chatWrap">
 	      <div id="chat"></div>
@@ -224,6 +224,7 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 		jQuery(function($){
+			var host = "192.168.2.111:3000"
 			var socket = io.connect(host);
                         var $nickForm = $('#setNick');
                         var $nickError = $('#nickError');
